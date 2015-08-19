@@ -1,3 +1,23 @@
-- @jobs.each do |job|
-	%h2= link_to job.title, job
-	%p= job.company
+//If no category is selected (for the all jobs page)
+- if @params.blank? 
+	#jobs
+		- @jobs.each do |job|
+			.job
+				%h2= link_to job.title, job
+				%p= job.company
+				%button.btn.btn-default= link_to "Apply for Job", job.url
+
+//If a category that has a job is selected
+- if @list.length > 0
+	#jobs
+		- @jobs.each do |job|
+			.job
+				%h2= link_to job.title, job
+				%p= job.company
+				%button.btn.btn-default= link_to "Apply for Job", job.url
+//If a category with no jobs is selected
+- if !@params.blank?
+	- if @list.length == 0
+		#jobs
+			.job
+				%p No jobs available at this time
